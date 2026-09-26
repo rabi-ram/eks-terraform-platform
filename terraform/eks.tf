@@ -3,6 +3,14 @@ resource "aws_eks_cluster" "this" {
   role_arn = aws_iam_role.eks_cluster.arn
   version  = var.kubernetes_version
 
+  enabled_cluster_log_types = [
+    "api",
+    "audit",
+    "authenticator",
+    "controllerManager",
+    "scheduler"
+  ]
+
   vpc_config {
     subnet_ids = concat(
       aws_subnet.public[*].id,
@@ -23,6 +31,7 @@ resource "aws_eks_node_group" "this" {
 
   instance_types = [var.node_instance_type]
   capacity_type  = "ON_DEMAND"
+  disk_size      = 30
 
   scaling_config {
     desired_size = var.desired_nodes

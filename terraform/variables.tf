@@ -3,7 +3,7 @@ variable "aws_region" {
 }
 
 variable "cluster_name" {
-  default = "ride-fare-eks"
+  default = "prod-eks-rabi"
 }
 
 variable "kubernetes_version" {

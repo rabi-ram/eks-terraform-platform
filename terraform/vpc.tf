@@ -4,7 +4,7 @@ resource "aws_vpc" "main" {
   enable_dns_support   = true
 
   tags = {
-    Name = "ride-fare-vpc"
+    Name = "prod-eks-rabi-vpc"
   }
 }
 
@@ -21,8 +21,9 @@ resource "aws_subnet" "public" {
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "public-${count.index + 1}"
-    "kubernetes.io/role/elb" = "1"
+    Name                                        = "public-${count.index + 1}"
+    "kubernetes.io/role/elb"                    = "1"
+    "kubernetes.io/cluster/${var.cluster_name}" = "shared"
   }
 }
 
@@ -34,8 +35,9 @@ resource "aws_subnet" "private" {
   availability_zone = data.aws_availability_zones.available.names[count.index]
 
   tags = {
-    Name = "private-${count.index + 1}"
-    "kubernetes.io/role/internal-elb" = "1"
+    Name                                        = "private-${count.index + 1}"
+    "kubernetes.io/role/internal-elb"           = "1"
+    "kubernetes.io/cluster/${var.cluster_name}" = "shared"
   }
 }
 
