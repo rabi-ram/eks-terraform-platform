@@ -30,4 +30,17 @@ output "oidc_issuer_url" {
   value = aws_eks_cluster.this.identity[0].oidc[0].issuer
 }
 
+output "alb_controller_role_arn" {
+  value = aws_iam_role.alb_controller.arn
+}
+
+
+output "s3_bucket_name" {
+  value = aws_s3_bucket.demo.bucket
+}
+
+
+output "backend_s3_role_arn" {
+  value = aws_iam_role.backend_s3.arn
+}
 
